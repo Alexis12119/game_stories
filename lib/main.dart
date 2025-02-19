@@ -13,6 +13,7 @@ import 'package:game_stories/pages/signup.dart';
 import 'package:game_stories/pages/teacher_score_view.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,10 +24,11 @@ Future<void> main() async {
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
+  await dotenv.load();
+
   await Supabase.initialize(
-    url: 'https://apvjytmedzcouthiinhu.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwdmp5dG1lZHpjb3V0aGlpbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQyMDk4ODUsImV4cCI6MjAzOTc4NTg4NX0.cVBk-gUJ82Z2HFqCel1pHsMNwMsqbSyyX01QelZoudk',
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
 
   Get.put(LoginController());
